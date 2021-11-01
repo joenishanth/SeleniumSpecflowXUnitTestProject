@@ -14,14 +14,12 @@ namespace SeleniumSpecflowXUnitTestProject.Hooks
     [Binding]
     public sealed class MainHooks
     {
-        private IWebDriver _driver;
-        private WebDriverWait _wait;
+        private static DriverContext _driverContext;
         private static IConfiguration _config;
 
         public MainHooks(DriverContext driverContext)
         {
-            _driver = driverContext.Driver;
-            _wait = driverContext.Wait;
+            _driverContext = driverContext;
         }
 
         [BeforeTestRun]
@@ -36,16 +34,16 @@ namespace SeleniumSpecflowXUnitTestProject.Hooks
         [BeforeScenario]
         public void BeforeScenario()
         {
-            _driver = new ChromeDriver();
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            _driver.Navigate().GoToUrl(_config["baseUrl"]);
+            _driverContext.Driver = new ChromeDriver();
+            _driverContext.Wait = new WebDriverWait(_driverContext.Driver, TimeSpan.FromSeconds(10));
+            _driverContext.Driver.Navigate().GoToUrl(_config["baseUrl"]);
             Thread.Sleep(5000);
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-            _driver.Quit();
+            _driverContext.Driver.Quit();
         }
     }
 }
