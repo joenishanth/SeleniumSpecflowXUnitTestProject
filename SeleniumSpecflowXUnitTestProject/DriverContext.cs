@@ -12,5 +12,10 @@ namespace SeleniumSpecflowXUnitTestProject
     {
         public IWebDriver Driver { get; set; }
         public WebDriverWait Wait { get; set; }
+
+        public string CaptureScreenshotAndReturnAsBase64()
+        {
+            return ((ITakesScreenshot)Driver).GetScreenshot().AsBase64EncodedString;
+        }
     }
 }
