@@ -19,9 +19,6 @@ namespace SeleniumSpecflowXUnitTestProject.Hooks
     [Binding]
     public sealed class MainHooks
     {
-        //private static FeatureContext _featureContext;
-        //private static ScenarioContext _scenarioContext;
-        //private ScenarioStepContext _stepContext;
         private static ApplicationSettings _config;
 
         private static ExtentTest featureName;
@@ -30,13 +27,6 @@ namespace SeleniumSpecflowXUnitTestProject.Hooks
 
         // private readonly IObjectContainer _objectcontainer;
         public static ApplicationSettings Configuration => _config;
-
-        //public MainHooks(FeatureContext featureContext ,ScenarioContext scenarioContext, ScenarioStepContext stepContext)
-        //{
-        //    _featureContext = featureContext;
-        //    _scenarioContext = scenarioContext;
-        //    _stepContext = stepContext;
-        //}
 
         [BeforeTestRun]
         public static void BeforeAllTest()
@@ -60,7 +50,6 @@ namespace SeleniumSpecflowXUnitTestProject.Hooks
             var htmlReporter = new AventStack.ExtentReports.Reporter.ExtentHtmlReporter(@"D:\Dev\Codes\cSharp\SeleniumSpecflowXUnitTestProject\Report\");
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             //htmlReporter.Config.ReportName = "extentReport.html";
-            // htmlReporter. = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             extentReport = new AventStack.ExtentReports.ExtentReports();
             extentReport.AnalysisStrategy = AnalysisStrategy.BDD;
             extentReport.AttachReporter(htmlReporter);
@@ -90,7 +79,7 @@ namespace SeleniumSpecflowXUnitTestProject.Hooks
         public void InitializeBrowser(ScenarioContext scernarioContext)
         {
             DriverContext driverContext = new()
-            { 
+            {
                 Driver = new ChromeDriver()
             };
             driverContext.Wait = new WebDriverWait(driverContext.Driver, TimeSpan.FromSeconds(10));

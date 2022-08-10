@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Bindings;
 using Xunit;
 
 namespace SeleniumSpecflowXUnitTestProject.Steps
@@ -23,7 +24,6 @@ namespace SeleniumSpecflowXUnitTestProject.Steps
         public LoginGuru99AppSteps(ScenarioContext scenarioContext)
         {
             _driverContext = scenarioContext.Get<DriverContext>();
-
             _loginPage = new LoginPage(_driverContext);
             _config = MainHooks.Configuration;
         }
@@ -33,7 +33,7 @@ namespace SeleniumSpecflowXUnitTestProject.Steps
         {
              
             var baseUrl = _config.BaseUrl;
-            _driverContext.Driver.Navigate().GoToUrl(baseUrl);
+            _loginPage.GotoApp(baseUrl);
         }
 
         [When(@"I enter a valid login credentials")]
